@@ -1,0 +1,106 @@
+#服务配置
+server:
+  port: 31041
+  max-http-header-size: 10240
+
+#spring相关配置
+spring:
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss.SSS
+    locale: zh_CN
+    serialization:
+      # 格式化输出
+      indent_output: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.21.0.12:3306/venue-reservation?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=CTT
+    username: root
+    password: venue@2023#0117$
+    # 连接池大小根据实际情况调整
+    max-active: 20
+    max-pool-prepared-statement-per-connection-size: 20
+  task:
+    scheduling:
+      pool:
+        size: 10
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+swagger:
+  enable: true
+#mybaits相关配置
+mybatis-plus:
+  #配置枚举 支持通配符 * 或者 ; 分割
+  type-enums-package: cn.stylefeng.guns.modular.enums
+  mapper-locations: classpath*:com/lxzh/**/mapping/*.xml, classpath:/META-INF/modeler-mybatis-mappings/*.xml, classpath*:/mapper/*Mapper.xml
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: assign_id
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: is_deleted
+    enable-sql-runner: true
+  configuration-properties:
+    prefix:
+    blobType: BLOB
+    boolValue: TRUE
+
+#微信支付配置
+wx:
+  #微信公众号测试
+  ma:
+    appId: wxc15c79ca0ac2f218
+    secret: 19e589602b5cba8d3bd1d363ade68758
+    #微信支付商户号
+    mchId: 1636977559
+    #微信支付商户密钥
+    mchKey: jingxichangguanjingxichangguan88
+    #服务商模式下的子商户公众账号ID
+    subAppId:
+    #服务商模式下的子商户号
+    subMchId:
+    # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    keyPath: classpath:/wxpaycert/prod/apiclient_cert.p12
+
+
+#支付基础配置
+pay:
+  #外网访问项目的域名，支付通知中会使用
+  domain: https://venue.suzhaoparking.com/venue-i
+  #支付回调通知地址
+  notifyUrl: https://venue.suzhaoparking.com/venue-i/v1/wxpay/notify/order
+  #退款回调通知地址
+  refundNotifyUrl: https://venue.suzhaoparking.com/venue-i/v1/wxpay/notify/refund
+  #支付订单超时时间（秒）
+  expire:
+    time:
+      order: 1800
+
+
+cos:
+  secretId: AKIDSxJVdaKKBsV5d7Wir7KSArTJ5kGg1GOP
+  secretKey: 0vobGoHevbJ2yLd7Xr0vb3ShlfM1YtbG
+  bucketName: venue-1316264397
+  region: ap-beijing
+  cdnEndpoint: files.suzhaoparking.com
+
+logging:
+  level:
+    com.lxzh: warn
+
+

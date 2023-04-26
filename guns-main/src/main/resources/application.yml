@@ -1,0 +1,55 @@
+#服务配置
+server:
+  port: 20000
+  max-http-header-size: 10240
+
+#spring相关配置
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
+  jackson:
+    time-zone: GMT+8
+    #date-format: yyyy-MM-dd HH:mm:ss.SSS
+    locale: zh_CN
+    serialization:
+      # 格式化输出
+      indent_output: false
+
+  redis:
+    host: 192.168.1.9
+    password:
+    port: 6379
+
+swagger:
+  enable: true
+#mybaits相关配置
+mybatis-plus:
+#配置枚举 支持通配符 * 或者 ; 分割
+  type-enums-package: cn.stylefeng.guns.modular.enums
+  mapper-locations: classpath*:com/lxzh/**/mapping/*.xml, classpath:/META-INF/modeler-mybatis-mappings/*.xml, classpath*:/mapper/*Mapper.xml
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: assign_id
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: is_deleted
+    enable-sql-runner: true
+  configuration-properties:
+    prefix:
+    blobType: BLOB
+    boolValue: TRUE
+
+
